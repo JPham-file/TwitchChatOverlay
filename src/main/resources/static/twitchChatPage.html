@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Chat Display</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="twitch-embed"></div>
+<div id="chatContainer">
+    <!-- Chat messages will be dynamically appended here -->
+</div>
+
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+<script type="text/javascript">
+    new Twitch.Embed("twitch-embed", {
+        width: 2560,
+        height: 1440,
+        channel: "xqc",
+        layout: "video",
+        autoplay: false,
+    });
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

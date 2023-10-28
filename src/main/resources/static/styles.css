@@ -1,0 +1,31 @@
+#chatContainer {
+    width: 400px;
+    height: 600px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: scroll;
+
+    resize: both;    /* This allows for both horizontal and vertical resizing */
+    overflow: auto;  /* Necessary for the resize property to work correctly */
+
+    position: fixed; /* Change this from absolute to fixed */
+}
+
+.message {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#twitch-embed {
+    width: 90%;  /* Adjust to your preferred width */
+    height: 80%; /* Adjust to your preferred height */
+}
