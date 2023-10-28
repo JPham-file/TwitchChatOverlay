@@ -1,27 +1,33 @@
 let socket = new WebSocket("ws://localhost:8080/ws/chat");
 
-socket.onopen = function (event) {
+socket.onopen = function(event) {
     console.log("Connected to the WebSocket");
 };
-socket.onmessage = function (event) {
-    console.log("Received:", event.data);
-};
-socket.onerror = function (error) {
+socket.onerror = function(error) {
     console.log(`WebSocket Error: ${error}`);
 };
 
 let allowAutoScroll = true; // Variable to track whether to allow auto-scrolling
 
-socket.onmessage = function (event) {
+socket.onmessage = function(event) {
     let chatContainer = document.getElementById("chatContainer");
 
     // Create and append the new message
     let msgDiv = document.createElement("div");
+
+    let chatString = event.data;
+
+    let parts = chatString.split(/: (.+)/);
+    let userName = parts[0];
+    let userChatMessage = parts[1];
+
+    let chatMessage = `<div class="chatMessage"><span class="userName">${userName}</span>: ${userChatMessage}</div>`;
+
     msgDiv.classList.add("message");
-    msgDiv.innerText = event.data;
+    msgDiv.innerHTML = chatMessage;  // Change this line to use innerHTML
     chatContainer.appendChild(msgDiv);
 
-    // Remove old messages if there are more than 50 messages
+    // Remove old messages if there are more than 150 messages
     let allMessages = chatContainer.querySelectorAll(".message");
     while (allMessages.length > 150) {
         chatContainer.removeChild(allMessages[0]);
@@ -35,7 +41,7 @@ socket.onmessage = function (event) {
 };
 
 // Detect scroll events to disable/enable auto-scrolling
-document.getElementById("chatContainer").addEventListener('scroll', function () {
+document.getElementById("chatContainer").addEventListener('scroll', function() {
     let chatContainer = this;
 
     // If user scrolls up, stop auto-scrolling
@@ -49,13 +55,12 @@ document.getElementById("chatContainer").addEventListener('scroll', function () 
 // Make chatContainer draggable
 let dragObj = null;
 document.getElementById('chatContainer').addEventListener('mousedown', function(event) {
-    // Ensure we're not in the middle of resizing
     if (event.target === this) {
         dragObj = this;
         // Store the initial position of the mouse relative to the chat container
         dragObj.offsetX = event.clientX - dragObj.getBoundingClientRect().left;
         dragObj.offsetY = event.clientY - dragObj.getBoundingClientRect().top;
-        event.preventDefault();
+        event.preventDefault(); // Prevent default behavior
     }
 });
 
