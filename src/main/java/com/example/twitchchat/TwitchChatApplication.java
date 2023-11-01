@@ -9,6 +9,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+
+
+
 @SpringBootApplication
 @RestController
 public class TwitchChatApplication {
@@ -16,6 +26,9 @@ public class TwitchChatApplication {
 
     @Autowired
     private WebSocketChatHandler webSocketChatHandler;
+    @Autowired
+    private ResourceLoader resourceLoader;
+    private HashMap<String, Boolean> filterWords;
 
     public static void main(String[] args) {
         SpringApplication.run(TwitchChatApplication.class, args);
@@ -23,6 +36,8 @@ public class TwitchChatApplication {
 
     @PostConstruct
     public void init() {
+        addFilterWords();
+
         OAuth2Credential credential = new OAuth2Credential("twitch", Oauth);
 
         TwitchClient twitchClient = TwitchClientBuilder.builder()
@@ -30,7 +45,7 @@ public class TwitchChatApplication {
                 .withEnableChat(true)
                 .build();
 
-        twitchClient.getChat().joinChannel("xqc");
+        twitchClient.getChat().joinChannel("");
         twitchClient.getEventManager().onEvent(com.github.twitch4j.chat.events.channel.ChannelMessageEvent.class, event -> {
             String userName = event.getUser().getName();
             String userChatMessage = event.getMessage();
@@ -38,13 +53,39 @@ public class TwitchChatApplication {
 //            System.out.println(chatMessage);
 
             try {
-                webSocketChatHandler.sendChatMessage(chatMessage);
+                if (!containsFilterWord(chatMessage)) {
+                    webSocketChatHandler.sendChatMessage(chatMessage);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         });
+    }
 
+    public void addFilterWords() {
+        filterWords = new HashMap<>();
+        try {
+            Resource resource = resourceLoader.getResource("classpath:filterWords.txt");
+            File file = resource.getFile();
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String word = scanner.nextLine().trim();
+                filterWords.put(word, true);
+            }
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean containsFilterWord(String chatMessage) {
+        for (String filterWord : filterWords.keySet()) {
+            if (chatMessage.toLowerCase().contains(filterWord.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
