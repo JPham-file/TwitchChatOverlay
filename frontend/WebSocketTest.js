@@ -1,42 +1,68 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
+import config from './config';
+
+const MAX_MESSAGES = 150;
 
 const WebSocketTest = () => {
-    useEffect(() => {
-        // Create a new WebSocket connection
-        const socket = new WebSocket("ws://localhost:8080/ws/chat");
+    const [messages, setMessages] = useState([]);
+    const flatListRef = useRef()
 
-        // Connection opened
+    useEffect(() => {
+        // const socket = new WebSocket("ws://localhost:8080/ws/chat");
+        const socket = new WebSocket(config.WEBSOCKET_URL);
+
         socket.addEventListener('open', (event) => {
             console.log('Connected to the WebSocket server');
         });
 
-        // Listen for messages
         socket.addEventListener('message', (event) => {
-            console.log('Message from server', event.data);
+            setMessages(prevMessages => {
+                // Keep only the last MAX_MESSAGES messages
+                const updatedMessages = [...prevMessages, event.data];
+                if (updatedMessages.length > MAX_MESSAGES) {
+                    return updatedMessages.slice(updatedMessages.length - MAX_MESSAGES);
+                }
+                return updatedMessages;
+            });
         });
 
-        // Listen for possible errors
         socket.addEventListener('error', (error) => {
             console.error('WebSocket Error', error);
         });
 
-        // Clean up the socket when component unmounts
         return () => socket.close();
     }, []);
 
-    return (
-        <View style={styles.container}>
-            <Text>Check your console for WebSocket messages</Text>
+    const renderItem = ({item}) => (
+        <View style={styles.message}>
+            <Text>{item}</Text>
         </View>
+    );
+
+    return (
+        <FlatList
+            ref={flatListRef}
+            data={messages}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            style={styles.container}
+            onContentSizeChange={() => flatListRef.current.scrollToEnd({animated: true})}
+        />
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        padding: 20,
+    },
+    message: {
+        fontSize: 16,
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        marginVertical: 5,
     },
 });
 
