@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import config from './config';
+import renderMessage from "./renderMessage";
 
-const MAX_MESSAGES = 150;
+const MAX_MESSAGES = 50;
 
 const WebSocketTest = () => {
     const [messages, setMessages] = useState([]);
     const flatListRef = useRef()
 
     useEffect(() => {
-        // const socket = new WebSocket("ws://localhost:8080/ws/chat");
         const socket = new WebSocket(config.WEBSOCKET_URL);
 
         socket.addEventListener('open', (event) => {
@@ -36,7 +36,8 @@ const WebSocketTest = () => {
 
     const renderItem = ({item}) => (
         <View style={styles.message}>
-            <Text>{item}</Text>
+            {/*<Text style={styles.messageText}>{item}</Text>*/}
+            {renderMessage(item)}
         </View>
     );
 
@@ -61,9 +62,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#000000',
         marginVertical: 5,
     },
+    messageText: {
+        color: 'white'
+    }
 });
 
 export default WebSocketTest;
