@@ -2,9 +2,11 @@ import {StyleSheet, Text, View} from "react-native";
 import emotes from './emote';
 import {Image} from "react-native";
 
-const renderMessage = (message) => {
+const renderMessage = (message, color) => {
     const messageComponents = [];
     const words = message.split(' ');
+    let isFirstWord = true;
+    let firstWordColor = color();
 
     words.forEach((word, index) => {
         if (emotes[word]) {
@@ -23,13 +25,19 @@ const renderMessage = (message) => {
                 </Text>
             );
         } else {
-            // If the word is not an emote, render it as text
+            const textStyle = isFirstWord ?
+                {...styles.messageText, fontWeight: 'bold', color: firstWordColor} :
+                styles.messageText;
+
             messageComponents.push(
-                <Text key={`text-${index}`} style={styles.messageText}>
+                <Text key={`text-${index}`} style={textStyle}>
                     {word + ' '}
                 </Text>
             );
         }
+
+        // Ensure only the first word is styled differently
+        isFirstWord = false;
     });
 
     return <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>{messageComponents}</View>;
@@ -44,10 +52,10 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#000000',
-        marginVertical: 5,
+        marginVertical: 1,
     },
     messageText: {
-        color: 'white'
+        color: 'white',
     }
 });
 

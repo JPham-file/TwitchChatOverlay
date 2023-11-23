@@ -1,9 +1,20 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import config from './config';
+
 import renderMessage from "./renderMessage";
 
-const MAX_MESSAGES = 50;
+const MAX_MESSAGES = 20;
+const getRandomColor = () => {
+    // const letters = '0123456789ABCDEF';
+    // let color = '#';
+    // for (let i = 0; i < 6; i++) {
+    //     color += letters[Math.floor(Math.random() * 16)];
+    // }
+    // return color;
+
+    return 'purple'
+};
 
 const WebSocketTest = () => {
     const [messages, setMessages] = useState([]);
@@ -37,7 +48,7 @@ const WebSocketTest = () => {
     const renderItem = ({item}) => (
         <View style={styles.message}>
             {/*<Text style={styles.messageText}>{item}</Text>*/}
-            {renderMessage(item)}
+            {renderMessage(item, getRandomColor)}
         </View>
     );
 
@@ -63,7 +74,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#000000',
-        marginVertical: 5,
+        marginVertical: 1,
     },
     messageText: {
         color: 'white'

@@ -1,18 +1,7 @@
 const emotes = {
-    'EZ': {uri: 'https://cdn.7tv.app/emote/63071b80942ffb69e13d700f/2x.webp'},
-    'PepeLaugh': {uri: 'https://cdn.7tv.app/emote/60420e3f77137b000de9e675/2x.webp'},
-    'SOYSCREAM': {uri: 'https://cdn.7tv.app/emote/64114d39f99ff93d22604f3f/2x.webp'},
-    'o7': {uri: 'https://cdn.7tv.app/emote/61de32c05001b6b33b2e32c8/2x.webp'},
     'sadge': {uri: 'https://cdn.7tv.app/emote/61630205c1ff9a17cc396522/2x.webp'},
-    'plink': {uri: 'https://cdn.7tv.app/emote/6501ea45bad3f314ff03f597/3x.webp'},
-    'SCHIZO': {uri: 'https://cdn.7tv.app/emote/61b670a76906591ea6f2005b/2x.webp'},
-    'Concerned': {uri: 'https://cdn.betterttv.net/emote/633f0425e6cf26500b42b791/2x.webp'},
-    'monkaW': {uri: 'https://cdn.7tv.app/emote/60aef3e4b74ea8ff797ae5ac/2x.webp'},
-
     'KEKL': {uri: 'https://cdn.frankerfacez.com/emoticon/407009/2'},
     'KEKW': {uri: 'https://cdn.frankerfacez.com/emoticon/390924/2'},
-    'YEP': {uri: 'https://cdn.frankerfacez.com/emoticon/418189/2'},
-    'OMEGALUL': {uri: 'https://cdn.frankerfacez.com/emoticon/128054/2'},
 
     ":tf:": {
         "uri": "https://cdn.betterttv.net/emote/54fa8f1401e468494b85b537/2x.webp"
@@ -50,9 +39,6 @@ const emotes = {
     "tehPoleCat": {
         "uri": "https://cdn.betterttv.net/emote/566ca11a65dbbdab32ec0558/2x.webp"
     },
-    "AngelThump": {
-        "uri": "https://cdn.betterttv.net/emote/566ca1a365dbbdab32ec055b/2x.webp"
-    },
     "TaxiBro": {
         "uri": "https://cdn.betterttv.net/emote/54fbefeb01abde735115de5b/2x.webp"
     },
@@ -61,9 +47,6 @@ const emotes = {
     },
     "CandianRage": {
         "uri": "https://cdn.betterttv.net/emote/54fbf09c01abde735115de61/2x.webp"
-    },
-    "D:": {
-        "uri": "https://cdn.betterttv.net/emote/55028cd2135896936880fdd7/2x.webp"
     },
     "VisLaud": {
         "uri": "https://cdn.betterttv.net/emote/550352766f86a5b26c281ba2/2x.webp"
