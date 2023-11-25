@@ -1741,7 +1741,7 @@ const emotes = {
         "uri": "https://cdn.7tv.app/emote/6112d1c30353486f03125c91/2x.webp"
     },
     "BAND": {
-        "uri": "https://cdn.7tv.app/emote/62f91facc9f98235d55b349f/3x.webp"
+        "uri": "https://cdn.7tv.app/emote/62f91facc9f98235d55b349f/4x.webp"
     },
     "AlienUnpleased": {
         "uri": "https://cdn.7tv.app/emote/619fb59915b3ff4a5bb7a90a/2x.webp"
@@ -2807,6 +2807,9 @@ const emotes = {
     },
     "madcat": {
         "uri": "https://cdn.7tv.app/emote/632eb06c6a8f862aab97f6a1/2x.webp"
+    },
+    "Gayge": {
+        "uri": "https://cdn.7tv.app/emote/6326788b1e9f2f8cdb340299/2x.webp"
     },
 };
 

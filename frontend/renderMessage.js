@@ -45,7 +45,7 @@ const renderMessage = (message, color) => {
 };
 const styles = StyleSheet.create({
     container: {
-        padding: 18,
+        padding: 12,
     },
     message: {
         padding: 10,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         marginVertical: 1,
     },
     messageText: {
-        fontSize: 20,
+        fontSize: 18,
         color: 'white',
     },
 });

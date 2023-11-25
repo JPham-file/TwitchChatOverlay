@@ -3,8 +3,7 @@ import {Text, View} from 'react-native';
 import {SafeAreaView, StyleSheet, Dimensions} from 'react-native';
 
 import Stream from './Stream';
-import ChatContainer from "./ChatContainer";
-import WebSocketTest from "./WebSocketTest";
+import ChatContainer2 from "./ChatContainer";
 
 const {height} = Dimensions.get('window');
 
@@ -14,7 +13,7 @@ export default function App() {
             <StatusBar style="auto"/>
             <SafeAreaView style={styles.safeArea}>
                 <Stream channelName={''} style={styles.stream}/>
-                <WebSocketTest/>
+                <ChatContainer2/>
             </SafeAreaView>
         </View>
     );
