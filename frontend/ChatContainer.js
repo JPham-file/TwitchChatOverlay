@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import config from './config';
 
 import renderMessage from "./renderMessage";
 
-const MAX_MESSAGES = 35;
+const MAX_MESSAGES = 100;
+const UPDATE_MESSAGES = 250;  // ms
 const getRandomColor = () => {
     return 'orange'
     // const letters = '0123456789ABCDEF';
@@ -15,9 +16,15 @@ const getRandomColor = () => {
     // return color;
 };
 
+const renderItem = ({item}, getRandomColorFn) => (
+    <View style={styles.message}>
+        {renderMessage(item, getRandomColorFn)}
+    </View>
+);
+
 const ChatContainer2 = () => {
     const [message, setMessage] = useState([]);
-    const flatListRef = useRef()
+    const flatListRef = useRef();
 
     useEffect(() => {
         const messageBatch = [];
@@ -34,7 +41,7 @@ const ChatContainer2 = () => {
                     return updatedMessages.slice(-MAX_MESSAGES);
                 });
             }
-        }, 1000); // update very 1000
+        }, UPDATE_MESSAGES); // update every ms
 
         return () => {
             clearInterval(interval);
@@ -42,18 +49,22 @@ const ChatContainer2 = () => {
         };
     }, []);
 
-    const renderItem = ({item}) => (
-        <View style={styles.message}>
-            {/*<Text style={styles.messageText}>{item}</Text>*/}
-            {renderMessage(item, getRandomColor)}
-        </View>
+    // const renderItem = ({item}) => (
+    //     <View style={styles.message}>
+    //         {renderMessage(item, getRandomColor)}
+    //     </View>
+    // );
+
+    const memoizedRenderItem = useCallback(
+        ({ item }) => renderItem({ item }, getRandomColor),
+        [] // Dependencies array, empty means the callback does not change
     );
 
     return (
         <FlatList
             ref={flatListRef}
             data={message}
-            renderItem={renderItem}
+            renderItem={memoizedRenderItem}
             keyExtractor={(item, index) => index.toString()}
             style={styles.container}
             onContentSizeChange={() => flatListRef.current.scrollToEnd({animated: true})}
