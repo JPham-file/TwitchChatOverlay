@@ -15,11 +15,58 @@ const getRandomColor = () => {
     // return color;
 };
 
-const WebSocketTest = () => {
+const ChatContainer2 = () => {
+    const [message, setMessage] = useState([]);
+    const flatListRef = useRef()
+
+    useEffect(() => {
+        const messageBatch = [];
+        const socket = new WebSocket(config.WEBSOCKET_URL);
+
+        socket.onmessage = (event) => {
+            messageBatch.push(event.data);
+        };
+
+        const interval = setInterval(() => {
+            if (messageBatch.length > 0) {
+                setMessage(prevMessage => {
+                    const updatedMessages = [...prevMessage, ...messageBatch];
+                    return updatedMessages.slice(-MAX_MESSAGES);
+                });
+            }
+        }, 1000); // update very 1000
+
+        return () => {
+            clearInterval(interval);
+            socket.close();
+        };
+    }, []);
+
+    const renderItem = ({item}) => (
+        <View style={styles.message}>
+            {/*<Text style={styles.messageText}>{item}</Text>*/}
+            {renderMessage(item, getRandomColor)}
+        </View>
+    );
+
+    return (
+        <FlatList
+            ref={flatListRef}
+            data={message}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            style={styles.container}
+            onContentSizeChange={() => flatListRef.current.scrollToEnd({animated: true})}
+        />
+    );
+}
+
+const ChatContainer = () => {
     const [messages, setMessages] = useState([]);
     const flatListRef = useRef()
 
     useEffect(() => {
+
         const socket = new WebSocket(config.WEBSOCKET_URL);
 
         socket.addEventListener('open', (event) => {
@@ -78,4 +125,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WebSocketTest;
+export default ChatContainer2;
