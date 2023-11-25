@@ -20,6 +20,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public WebSocketConfig() {
         try {
             myIPAddress = InetAddress.getLocalHost().getHostAddress();
+//            System.out.println(myIPAddress);
         } catch (UnknownHostException a) {
             a.printStackTrace();
         }

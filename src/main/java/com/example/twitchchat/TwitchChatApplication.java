@@ -45,7 +45,7 @@ public class TwitchChatApplication {
                 .withEnableChat(true)
                 .build();
 
-        twitchClient.getChat().joinChannel("");
+        twitchClient.getChat().joinChannel("xqc");
         twitchClient.getEventManager().onEvent(com.github.twitch4j.chat.events.channel.ChannelMessageEvent.class, event -> {
             String userName = event.getUser().getName();
             String userChatMessage = event.getMessage();
@@ -53,9 +53,9 @@ public class TwitchChatApplication {
 //            System.out.println(chatMessage);
 
             try {
-                if (!containsFilterWord(chatMessage)) {
+//                if (!containsFilterWord(chatMessage)) {
                     webSocketChatHandler.sendChatMessage(chatMessage);
-                }
+//                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

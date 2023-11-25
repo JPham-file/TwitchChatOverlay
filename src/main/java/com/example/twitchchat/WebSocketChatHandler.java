@@ -36,7 +36,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
     }
     public synchronized void sendChatMessage(String chatMessage) throws Exception {
-        logger.info("Sending chat message to all active sessions: {}", chatMessage);
+//        logger.info("Sending chat message to all active sessions: {}", chatMessage);
         for (WebSocketSession session: sessions) {
             if (session.isOpen()) {
                 session.sendMessage(new TextMessage(chatMessage));
