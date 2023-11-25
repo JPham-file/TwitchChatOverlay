@@ -5,24 +5,24 @@
     padding: 10px;
     overflow-y: scroll;
 
-    resize: both;    /* This allows for both horizontal and vertical resizing */
-    overflow: auto;  /* Necessary for the resize property to work correctly */
+    resize: both; /* This allows for both horizontal and vertical resizing */
+    overflow: auto; /* Necessary for the resize property to work correctly */
 
     position: fixed; /* Change this from absolute to fixed */
 
-    font-size: larger;  /* Increase the font size */
-    color: #262626;        /* Set the message color to gray */
+    font-size: larger; /* Increase the font size */
+    color: #262626; /* Set the message color to gray */
 }
 
 /* Styles for the userName */
 .userName {
-    font-weight: bold;  /* Make the userName bold */
+    font-weight: bold; /* Make the userName bold */
 }
 
 /* Styles for the individual chat message */
 .chatMessage {
-    word-wrap: break-word;  /* Handle long messages by breaking them into new lines */
-    color: #ffffff;    /* sets the color of the text to a specific shade of gray */
+    word-wrap: break-word; /* Handle long messages by breaking them into new lines */
+    color: #ffffff; /* sets the color of the text to a specific shade of gray */
     font-size: 18px;
 }
 
