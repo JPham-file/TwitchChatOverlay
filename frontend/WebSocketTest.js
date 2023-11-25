@@ -4,16 +4,15 @@ import config from './config';
 
 import renderMessage from "./renderMessage";
 
-const MAX_MESSAGES = 20;
+const MAX_MESSAGES = 35;
 const getRandomColor = () => {
+    return 'orange'
     // const letters = '0123456789ABCDEF';
     // let color = '#';
     // for (let i = 0; i < 6; i++) {
     //     color += letters[Math.floor(Math.random() * 16)];
     // }
     // return color;
-
-    return 'purple'
 };
 
 const WebSocketTest = () => {
@@ -66,11 +65,9 @@ const WebSocketTest = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 20,
     },
     message: {
-        fontSize: 16,
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#000000',

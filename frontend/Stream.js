@@ -1,15 +1,13 @@
 import React from 'react';
 import WebView from "react-native-webview";
 import {View, StyleSheet} from 'react-native';
-import ScrollViewWithEventThrottle
-    from "react-native-web/dist/vendor/react-native/Animated/components/AnimatedScrollView";
 
-const Stream = ({channelName}) => {
+const Stream = ({channelName, style}) => {
     const twitchURL = `https://player.twitch.tv/?channel=${channelName}&parent=yourappdomain.com`;
     return (
-        <View style={styles.container}>
+        <View style={style}>
             <WebView
-                style={styles.webview}
+                // style={StyleSheet.absoluteFill}
                 source={{uri: twitchURL}}
                 allowsInlineMediaPlayback
                 mediaPlaybackRequiresUserAction={false}
@@ -17,14 +15,4 @@ const Stream = ({channelName}) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    webview: {
-        flex: 1,
-    }
-});
-
 export default Stream;

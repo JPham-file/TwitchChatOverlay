@@ -15,12 +15,13 @@ const renderMessage = (message, color) => {
                 <Image
                     key={`emote-${index}`}
                     source={emotes[word]}
-                    style={{width: 30, height: 30}}
+                    style={{width: 35, height: 35}}
                     resizeMode="contain"
                 />
+
             );
             messageComponents.push(
-                <Text key={`text-${index}`} style={styles.messageText}>
+                <Text key={`text-${index}`}>
                     {' '}
                 </Text>
             );
@@ -44,19 +45,18 @@ const renderMessage = (message, color) => {
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 20,
+        padding: 18,
     },
     message: {
-        fontSize: 16,
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#000000',
         marginVertical: 1,
     },
     messageText: {
+        fontSize: 20,
         color: 'white',
-    }
+    },
 });
 
 export default renderMessage;
